@@ -1,15 +1,39 @@
 @import "tailwindcss";
 
-@theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/PretendardVariable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-display: swap;
 }
 
-html,
-body {
-  @apply bg-white dark:bg-gray-950;
+@font-face {
+  font-family: "RacingSansOne";
+  src: url("/fonts/RacingSansOne-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
 
-  @media (prefers-color-scheme: dark) {
-    color-scheme: dark;
+@font-face {
+  font-family: "Pretendard Fallback";
+  src: local("Arial"); /* 시스템 폰트 */
+  size-adjust: 102%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+/* @layer utilities {
+  .font-racing {
+    font-family: "RacingSansOne", sans-serif;
   }
+
+  .font-pretendard {
+    font-family: "Pretendard", "Pretendard Fallback", sans-serif;
+  }
+} */
+
+@theme {
+  --font-sans: Pretendard, "Pretendard Fallback", system-ui, sans-serif;
+  --font-racing: RacingSansOne, sans-serif;
 }
