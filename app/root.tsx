@@ -30,8 +30,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className=" bg-black text-white font-sans">
-        {/* <Navbar /> */}
+      <body className=" bg-black text-white font-sans min-h-screen">
+        <Navbar />
         {children}
         <ScrollRestoration />
         <Scripts />

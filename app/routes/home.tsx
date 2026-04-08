@@ -1,4 +1,6 @@
+import VideoScreen from "~/screens/home/VideoScreen";
 import type { Route } from "./+types/home";
+import MainSection from "~/screens/home/MainSection";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -10,8 +12,8 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   return (
     <div>
-      <div className=" font-racing">hello world</div>
-      <div>typo</div>
+      <VideoScreen />
+      <MainSection />
     </div>
   );
 }
