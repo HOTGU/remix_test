@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
-// import { MdSubdirectoryArrowRight } from "react-icons/md";
+import { CornerDownRight } from "lucide-react";
 
 type Props = {
   label: string;
@@ -62,7 +62,7 @@ const ReverseUnderlineText: React.FC<Props> = ({
       <div
         className={`flex gap-2 items-center justify-center ${textColor} font-bold`}
       >
-        {/* <MdSubdirectoryArrowRight size={emojiSize} /> */}
+        <CornerDownRight size={emojiSize} />
         <div className={fontSize}>{label}</div>
       </div>
 

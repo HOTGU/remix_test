@@ -23,16 +23,6 @@
   line-gap-override: 0%;
 }
 
-/* @layer utilities {
-  .font-racing {
-    font-family: "RacingSansOne", sans-serif;
-  }
-
-  .font-pretendard {
-    font-family: "Pretendard", "Pretendard Fallback", sans-serif;
-  }
-} */
-
 @theme {
   --font-sans: Pretendard, "Pretendard Fallback", system-ui, sans-serif;
   --font-racing: RacingSansOne, sans-serif;
