@@ -1,4 +1,9 @@
-import { Form, useActionData, useNavigation } from "react-router";
+import {
+  Form,
+  useActionData,
+  useNavigation,
+  type ActionFunctionArgs,
+} from "react-router";
 import ReverseUnderlineText from "~/components/framer/ReverseUnderlineText";
 
 import Container from "~/components/global/Container";
@@ -13,6 +18,11 @@ import { OPTIONS } from "~/constants";
 const FormColumnTitle = ({ children }: { children: React.ReactNode }) => (
   <div className=" font-ibm text-3xl font-light mb-4">{children}</div>
 );
+
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+  console.log(formData);
+}
 
 export default function Contact() {
   const data = useActionData();
@@ -34,12 +44,12 @@ export default function Contact() {
           </div>
 
           <div className="w-1/2">
-            <Form>
+            <Form method="POST">
               <FormColumnTitle>프로젝트 정보</FormColumnTitle>
 
               <Textarea
                 name="description"
-                label="어떤 걸 만들고 싶으신가요? *"
+                label="규격, 납기일, 컨텐츠, 소재 등 상세히 기입해주세요 *"
                 // required
               />
               <Select

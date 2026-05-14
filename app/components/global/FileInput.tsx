@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FolderOpen, X } from "lucide-react";
+import { Copy, FolderOpen, Info, X } from "lucide-react";
 import { compressImage, getTotalFileSize } from "~/utils";
 
 interface FileInputProps {
@@ -21,9 +21,20 @@ const FileInput: React.FC<FileInputProps> = ({
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<File[]>([]);
+  const [copied, setCopied] = useState(false);
   const maxTotalSizeMB = 4;
   const totalSize = getTotalFileSize(files);
   const isOverLimit = totalSize > maxTotalSizeMB;
+
+  const text = "contact@weavement.co.kr";
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 1500);
+  };
 
   useEffect(() => {
     if (!inputRef.current) return;
@@ -56,7 +67,38 @@ const FileInput: React.FC<FileInputProps> = ({
 
   return (
     <div className={`flex flex-col gap-2 pt-10 relative ${className}`}>
-      {label && <span className="text-lg text-stone-400">{label}</span>}
+      {label && (
+        <div className="text-stone-400 flex flex-col">
+          <span className="text-lg">{label}</span>
+          <div className="flex gap-1 items-center text-sm font-light">
+            <Info size={15} />
+            <span>이미지확장자 (jpg, png, webp 등)만 가능합니다</span>
+          </div>
+          <div className="flex gap-1 items-center text-sm font-light">
+            <Info size={15} />
+            <span>3D, 일러스트 등은</span>
+            <div
+              onClick={handleCopy}
+              className="group relative inline-flex items-center gap-1 underline cursor-pointer"
+            >
+              <span>{text}</span>
+              <Copy size={12} />
+              <span
+                className="
+        absolute top-4 left-1/2 -translate-x-1/2
+        whitespace-nowrap rounded bg-black px-2 py-1
+        text-xs text-white
+        opacity-0 transition-opacity
+        group-hover:opacity-100
+      "
+              >
+                {copied ? "복사됨!" : "복사"}
+              </span>
+            </div>
+            <span>로 수신바랍니다</span>
+          </div>
+        </div>
+      )}
 
       {/* 숨겨진 파일 input */}
       <input
