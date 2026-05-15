@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import {
   Form,
   useActionData,
@@ -14,6 +15,9 @@ import Radio from "~/components/global/Radio";
 import Select from "~/components/global/Select";
 import Textarea from "~/components/global/Textarea";
 import { OPTIONS } from "~/constants";
+import { getDb } from "~/libs/db.server";
+import { ClientSchema } from "~/schemas/client.server";
+import { ContactSchema, type Contact } from "~/schemas/contact.server";
 
 const FormColumnTitle = ({ children }: { children: React.ReactNode }) => (
   <div className=" font-ibm text-3xl font-light mb-4">{children}</div>
@@ -21,7 +25,86 @@ const FormColumnTitle = ({ children }: { children: React.ReactNode }) => (
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  console.log(formData);
+
+  //
+  // files
+  //
+
+  const files = formData
+    .getAll("images")
+    .filter((v): v is File => v instanceof File && v.size > 0);
+
+  //
+  // 실제론 S3 업로드
+  //
+
+  const imageUrls = files.map((file) => `https://cdn.test.com/${file.name}`);
+
+  //
+  // client
+  //
+
+  const clientData = {
+    name: formData.get("name"),
+
+    phone: formData.get("phone"),
+
+    email: formData.get("email"),
+
+    position: formData.get("position") || "",
+  };
+
+  const clientResult = ClientSchema.safeParse(clientData);
+
+  if (!clientResult.success) {
+    return {
+      ok: false,
+
+      errors: clientResult.error.flatten(),
+    };
+  }
+
+  //
+  // contact
+  //
+
+  const contactData = {
+    hasDesign: formData.get("hasDesign"),
+
+    cost: formData.get("cost"),
+
+    schedule: formData.get("schedule"),
+
+    description: formData.get("description"),
+
+    images: imageUrls,
+
+    knowPlatform: formData.get("knowPlatform"),
+
+    clientCompany: formData.get("clientCompany"),
+
+    clients: [clientResult.data],
+  };
+
+  const contactResult = ContactSchema.safeParse(contactData);
+
+  if (!contactResult.success) {
+    return {
+      ok: false,
+
+      errors: contactResult.error.flatten(),
+    };
+  }
+
+  //
+  // insert
+  //
+  const db = await getDb();
+  await db.collection<Contact>("contacts").insertOne(contactResult.data);
+
+  return {
+    ok: true,
+  };
 }
 
 export default function Contact() {
@@ -75,7 +158,7 @@ export default function Contact() {
               <PaddingSection size="sm" />
 
               <FormColumnTitle>고객 정보</FormColumnTitle>
-              <Input name="clientCompany" label="회사명" />
+              <Input name="clientCompany" label="회사명 *" />
               <Input
                 name="name"
                 label="성함 *"

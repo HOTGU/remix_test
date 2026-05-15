@@ -3,7 +3,7 @@ import BackgroundScrollMainSection from "~/screens/home/BackgroundScrollMainSect
 import { getDb } from "~/libs/db.server";
 
 import type { Route } from "./+types/home";
-import type { Portfolio } from "~/schemas/portfolio";
+import type { Portfolio } from "~/schemas/portfolio.server";
 
 export function meta({}: Route.MetaArgs) {
   return [

@@ -3,7 +3,7 @@ import { Link, useRouteLoaderData } from "react-router";
 import ReverseUnderlineText from "~/components/framer/ReverseUnderlineText";
 import PaddingSection from "~/components/global/PaddingSection";
 
-import type { Portfolio } from "~/schemas/portfolio";
+import type { Portfolio } from "~/schemas/portfolio.server";
 
 const ContactSection = () => {
   const data = useRouteLoaderData("routes/home");

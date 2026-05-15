@@ -85,9 +85,9 @@ const FileInput: React.FC<FileInputProps> = ({
               <Copy size={12} />
               <span
                 className="
-        absolute top-4 left-1/2 -translate-x-1/2
-        whitespace-nowrap rounded bg-black px-2 py-1
-        text-xs text-white
+        absolute top-5 left-1/2 -translate-x-1/2
+        whitespace-nowrap rounded bg-white px-2 py-1
+        text-xs text-black
         opacity-0 transition-opacity
         group-hover:opacity-100
       "
