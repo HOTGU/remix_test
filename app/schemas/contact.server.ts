@@ -1,5 +1,3 @@
-// app/schemas/contact.server.ts
-
 import { ObjectId } from "mongodb";
 import { z } from "zod";
 

@@ -1,4 +1,5 @@
 import React from "react";
+import FieldError from "./FieldError";
 
 interface InputProps {
   label: string;
@@ -7,6 +8,7 @@ interface InputProps {
   required?: boolean;
   formatterPhone?: boolean;
   name: string;
+  error?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -16,9 +18,10 @@ const Input: React.FC<InputProps> = ({
   required,
   name,
   formatterPhone,
+  error,
 }) => {
   return (
-    <div className="w-full relative">
+    <div className="w-full relative font-thin">
       <input
         disabled={disabled}
         id={name}
@@ -26,15 +29,17 @@ const Input: React.FC<InputProps> = ({
         placeholder=" "
         type={type}
         required={required}
-        className={`peer w-[80%] text-lg text-stone-400 bg-transparent pt-10 pb-4 z-10 font-light border-b border-stone-400 hover:border-white focus:border-white focus:text-white outline-none transition disabled:cursor-not-allowed`}
+        className={`peer w-[80%] text-lg text-stone-400 bg-transparent pt-10 pb-4 z-10 border-b border-stone-400 hover:border-white focus:border-white focus:text-white outline-none transition disabled:cursor-not-allowed`}
         autoComplete="off"
       />
       <label
         htmlFor={name}
-        className={`absolute text-lg duration-150 transform text-stone-400 top-2 scale-75 z-[0] origin-[0] left-0 hover:cursor-text peer-placeholder-shown:scale-100  peer-placeholder-shown:top-10 peer-focus:scale-75 peer-focus:top-0 `}
+        className={`absolute text-lg duration-150 transform text-stone-400 top-2 scale-75 z-0 origin-left left-0 hover:cursor-text peer-placeholder-shown:scale-100  peer-placeholder-shown:top-10 peer-focus:scale-75 peer-focus:top-0 `}
       >
         {label}
       </label>
+
+      <FieldError error={error} />
     </div>
   );
 };

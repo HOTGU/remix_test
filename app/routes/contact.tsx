@@ -1,118 +1,133 @@
-import { ObjectId } from "mongodb";
-import {
-  Form,
-  useActionData,
-  useNavigation,
-  type ActionFunctionArgs,
-} from "react-router";
-import ReverseUnderlineText from "~/components/framer/ReverseUnderlineText";
+import { type ActionFunctionArgs } from "react-router";
 
 import Container from "~/components/global/Container";
-import FileInput from "~/components/global/FileInput";
-import Input from "~/components/global/Input";
 import PaddingSection from "~/components/global/PaddingSection";
-import Radio from "~/components/global/Radio";
-import Select from "~/components/global/Select";
-import Textarea from "~/components/global/Textarea";
-import { OPTIONS } from "~/constants";
+import ContactForm from "~/screens/contact/ContactForm";
+
 import { getDb } from "~/libs/db.server";
+import { uploadFileToS3 } from "~/libs/s3.server";
 import { ClientSchema } from "~/schemas/client.server";
 import { ContactSchema, type Contact } from "~/schemas/contact.server";
 
-const FormColumnTitle = ({ children }: { children: React.ReactNode }) => (
-  <div className=" font-ibm text-3xl font-light mb-4">{children}</div>
-);
-
 export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
+  try {
+    const formData = await request.formData();
 
-  //
-  // files
-  //
+    //
+    // files
+    //
 
-  const files = formData
-    .getAll("images")
-    .filter((v): v is File => v instanceof File && v.size > 0);
+    const files = formData
+      .getAll("images")
+      .filter((f): f is File => f instanceof File && f.size > 0);
 
-  //
-  // 실제론 S3 업로드
-  //
+    //
+    // upload
+    //
 
-  const imageUrls = files.map((file) => `https://cdn.test.com/${file.name}`);
+    const imageUrls = await Promise.all(
+      files.map((file) =>
+        uploadFileToS3({
+          folderName: String(formData.get("clientCompany")) || "unknown",
 
-  //
-  // client
-  //
+          file,
 
-  const clientData = {
-    name: formData.get("name"),
+          resizeWidth: 1600,
+        }),
+      ),
+    );
 
-    phone: formData.get("phone"),
+    //
+    // client
+    //
 
-    email: formData.get("email"),
+    const clientResult = ClientSchema.safeParse({
+      name: formData.get("name"),
 
-    position: formData.get("position") || "",
-  };
+      phone: formData.get("phone"),
 
-  const clientResult = ClientSchema.safeParse(clientData);
+      email: formData.get("email"),
 
-  if (!clientResult.success) {
-    return {
-      ok: false,
+      position: formData.get("position") || "",
+    });
 
-      errors: clientResult.error.flatten(),
-    };
+    if (!clientResult.success) {
+      return Response.json(
+        {
+          ok: false,
+
+          fieldErrors: clientResult.error.flatten().fieldErrors,
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    //
+    // contact
+    //
+
+    const contactResult = ContactSchema.safeParse({
+      hasDesign: formData.get("hasDesign"),
+
+      cost: formData.get("cost"),
+
+      schedule: formData.get("schedule"),
+
+      description: formData.get("description"),
+
+      images: imageUrls,
+
+      knowPlatform: formData.get("knowPlatform"),
+
+      clientCompany: formData.get("clientCompany"),
+
+      clients: [clientResult.data],
+    });
+
+    if (!contactResult.success) {
+      return Response.json(
+        {
+          ok: false,
+
+          fieldErrors: contactResult.error.flatten().fieldErrors,
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    //
+    // db
+    //
+
+    const db = await getDb();
+
+    await db.collection("Contact").insertOne(contactResult.data);
+
+    return Response.json({
+      ok: true,
+      message: `문의가 성공적으로 접수되었습니다\n빠른 시일내에 연락드리겠습니다`,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return Response.json(
+      {
+        ok: false,
+
+        message: "서버 오류가 발생했습니다.",
+      },
+      {
+        status: 500,
+      },
+    );
   }
-
-  //
-  // contact
-  //
-
-  const contactData = {
-    hasDesign: formData.get("hasDesign"),
-
-    cost: formData.get("cost"),
-
-    schedule: formData.get("schedule"),
-
-    description: formData.get("description"),
-
-    images: imageUrls,
-
-    knowPlatform: formData.get("knowPlatform"),
-
-    clientCompany: formData.get("clientCompany"),
-
-    clients: [clientResult.data],
-  };
-
-  const contactResult = ContactSchema.safeParse(contactData);
-
-  if (!contactResult.success) {
-    return {
-      ok: false,
-
-      errors: contactResult.error.flatten(),
-    };
-  }
-
-  //
-  // insert
-  //
-  const db = await getDb();
-  await db.collection<Contact>("contacts").insertOne(contactResult.data);
-
-  return {
-    ok: true,
-  };
 }
 
 export default function Contact() {
-  const data = useActionData();
-  const navigation = useNavigation();
-
-  const isSubmitting = navigation.state === "submitting";
-
   return (
     <div className="bg-black min-h-screen text-slate-200">
       <PaddingSection size="lg" />
@@ -127,97 +142,7 @@ export default function Contact() {
           </div>
 
           <div className="w-1/2">
-            <Form method="POST">
-              <FormColumnTitle>프로젝트 정보</FormColumnTitle>
-
-              <Textarea
-                name="description"
-                label="규격, 납기일, 컨텐츠, 소재 등 상세히 기입해주세요 *"
-                // required
-              />
-              <Select
-                name="cost"
-                options={OPTIONS.COST}
-                label="예산을 선택해주세요 *"
-                // required
-              />
-              <Radio
-                options={OPTIONS.DESIGN}
-                name="hasDesign"
-                label="디자인을 가지고 계신가요 *"
-                // required
-              />
-              <Radio
-                options={OPTIONS.SCHEDULE}
-                name="schedule"
-                label="일정을 선택해주세요 *"
-                // required
-              />
-              <FileInput label="참고사진 (최대5개)" name="images" />
-
-              <PaddingSection size="sm" />
-
-              <FormColumnTitle>고객 정보</FormColumnTitle>
-              <Input name="clientCompany" label="회사명 *" />
-              <Input
-                name="name"
-                label="성함 *"
-                // required
-              />
-              <Input name="position" label="직급" />
-              <Input name="phone" label="번호 *" />
-              <Input name="email" label="이메일 *" />
-
-              <PaddingSection size="sm" />
-
-              <FormColumnTitle>부가정보</FormColumnTitle>
-              <Select
-                name="knowPlatform"
-                options={OPTIONS.PLATFORM}
-                label="알게 된 경로를 선택해주세요 *"
-                // required
-              />
-              <div className="text-stone-400 mt-10 space-y-4">
-                <div className="text-xl text-white ">개인정보 수집 동의</div>
-                <div className="space-y-1">
-                  <div>
-                    수집 항목: 필수 (성명,연락처 등) /선택 (첨부파일 등)
-                  </div>
-                  <div>
-                    수집된 정보는 문의 접수 및 회신에 이용되며
-                    '전자상거래',"정보통신망 이용촉진 및 정보보호" 등 관련
-                    법령에 따라 6개월간 보관됩니다.
-                  </div>
-                  <div>
-                    이용자는 본 동의를 거부할 수 있으며, 미동의 시 문의 접수가
-                    불가합니다.
-                  </div>
-                </div>
-                <div className="flex gap-2 ">
-                  <input
-                    type="checkbox"
-                    className="w-4 accent-blue-700"
-                    required
-                    id="box"
-                  />
-                  <label className="text-lg" htmlFor="box">
-                    위 사항을 이해했으며 동의합니다 *
-                  </label>
-                </div>
-              </div>
-
-              <PaddingSection size="sm" />
-
-              <button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  "전송 중"
-                ) : (
-                  <ReverseUnderlineText label="제출하기" color="white" />
-                )}
-              </button>
-
-              <PaddingSection size="lg" />
-            </Form>
+            <ContactForm />
           </div>
         </div>
       </Container>

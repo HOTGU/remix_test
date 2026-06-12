@@ -68,7 +68,7 @@ const ReverseUnderlineText: React.FC<Props> = ({
 
       {/* 밑줄 */}
       <motion.span
-        className={`absolute -bottom-1 left-0 w-full h-[1px] ${bgColor} pointer-events-none`}
+        className={`absolute -bottom-1 left-0 w-full h-px ${bgColor} pointer-events-none`}
         initial={{ scaleX: 1, transformOrigin: "left" }}
         animate={controls}
       />

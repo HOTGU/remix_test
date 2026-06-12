@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import FieldError from "./FieldError";
 
 type Option = { value: string; label: string };
 
@@ -11,6 +12,7 @@ interface SelectProps {
   required?: boolean;
   className?: string; // 바깥 래퍼 커스터마이즈용
   menuClassName?: string; // 드롭다운 스타일 커스터마이즈용
+  error?: string;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -22,6 +24,7 @@ const Select: React.FC<SelectProps> = ({
   required,
   className = "",
   menuClassName = "",
+  error,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
@@ -51,10 +54,13 @@ const Select: React.FC<SelectProps> = ({
   }, [open]);
 
   return (
-    <div ref={containerRef} className={`w-full relative ${className}`}>
+    <div
+      ref={containerRef}
+      className={`w-full relative font-thin ${className}`}
+    >
       {/* 폼 제출용 hidden input */}
       <input
-        className=" opacity-0 h-[1px] absolute left-0 bottom-0"
+        className=" opacity-0 h-px absolute left-0 bottom-0"
         name={name}
         value={selected?.value ?? ""}
         required={required}
@@ -94,7 +100,7 @@ const Select: React.FC<SelectProps> = ({
                     setOpen(false);
                   }
                 }}
-                className="px-4 py-2 text-lg font-thin font-ibm text-white hover:text-stone-400 cursor-pointer"
+                className="px-4 py-2 text-lg text-white hover:text-stone-400 cursor-pointer"
               >
                 {opt.label}
               </div>
@@ -102,6 +108,8 @@ const Select: React.FC<SelectProps> = ({
           })}
         </div>
       )}
+
+      <FieldError error={error} />
     </div>
   );
 };

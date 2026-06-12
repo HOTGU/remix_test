@@ -31,7 +31,7 @@ const UnderlineText = ({ to, label }: { to: string; label: string }) => {
           {isHovered && (
             <motion.div
               key="underline"
-              className="absolute bottom-0 bg-white h-[1px] mix-blend-difference"
+              className="absolute bottom-0 bg-white h-px mix-blend-difference"
               style={{ transformOrigin: "left" }}
               variants={underlineVariants}
               initial="initial"

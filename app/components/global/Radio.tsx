@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import FieldError from "./FieldError";
 
 type Option = { value: string; label: string };
 
@@ -10,6 +11,7 @@ interface RadioGroupProps {
   required?: boolean;
   className?: string; // 바깥 래퍼 스타일
   buttonClassName?: string; // 버튼 개별 스타일
+  error?: string;
 }
 
 const Radio: React.FC<RadioGroupProps> = ({
@@ -20,11 +22,14 @@ const Radio: React.FC<RadioGroupProps> = ({
   required,
   className = "",
   buttonClassName = "",
+  error,
 }) => {
   const [selected, setSelected] = useState<string | undefined>(defaultValue);
 
   return (
-    <div className={`flex flex-col gap-2 pt-10 relative ${className}`}>
+    <div
+      className={`flex flex-col gap-2 pt-10 relative font-thin ${className}`}
+    >
       {/* 폼 제출용 hidden input */}
       <input
         className=" opacity-0 h-px absolute left-0 bottom-0"
@@ -44,7 +49,7 @@ const Radio: React.FC<RadioGroupProps> = ({
               key={opt.value}
               type="button"
               onClick={() => setSelected(opt.value)}
-              className={`px-6 py-2 font-medium transition rounded-full cursor-pointer
+              className={`px-6 py-2 transition rounded-full cursor-pointer
                 ${
                   isSelected
                     ? "bg-white text-black"
@@ -57,6 +62,8 @@ const Radio: React.FC<RadioGroupProps> = ({
           );
         })}
       </div>
+
+      <FieldError error={error} />
     </div>
   );
 };

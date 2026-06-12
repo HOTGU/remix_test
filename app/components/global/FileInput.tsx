@@ -66,15 +66,17 @@ const FileInput: React.FC<FileInputProps> = ({
   };
 
   return (
-    <div className={`flex flex-col gap-2 pt-10 relative ${className}`}>
+    <div
+      className={`flex flex-col gap-2 pt-10 font-thin relative ${className}`}
+    >
       {label && (
         <div className="text-stone-400 flex flex-col">
           <span className="text-lg">{label}</span>
-          <div className="flex gap-1 items-center text-sm font-light">
+          <div className="flex gap-1 items-center text-sm">
             <Info size={15} />
             <span>이미지확장자 (jpg, png, webp 등)만 가능합니다</span>
           </div>
-          <div className="flex gap-1 items-center text-sm font-light">
+          <div className="flex gap-1 items-center text-sm">
             <Info size={15} />
             <span>3D, 일러스트 등은</span>
             <div
@@ -116,7 +118,7 @@ const FileInput: React.FC<FileInputProps> = ({
       {/* 파일 선택 버튼 */}
       <label
         htmlFor={name}
-        className={`self-start flex gap-2 items-center w-auto px-4 py-2 font-medium transition cursor-pointer 
+        className={`self-start flex gap-2 items-center w-auto px-4 py-2 transition cursor-pointer 
     border border-stone-600 bg-black text-stone-400 hover:bg-stone-800 
     ${buttonClassName}`}
       >
@@ -147,14 +149,12 @@ const FileInput: React.FC<FileInputProps> = ({
       {files.length > 0 && (
         <div className="mt-2 flex items-center gap-2">
           <span
-            className={`font-medium ${
-              isOverLimit ? "text-red-500" : "text-stone-600"
-            }`}
+            className={` ${isOverLimit ? "text-red-500" : "text-stone-600"}`}
           >
             총 용량: {totalSize} MB / {maxTotalSizeMB} MB
           </span>
           {isOverLimit && (
-            <span className="text-red-500 text-sm font-normal">
+            <span className="text-red-500 text-sm">
               ⚠ 총 용량 초과! 일부 파일을 제거해주세요.
             </span>
           )}

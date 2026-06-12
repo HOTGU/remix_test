@@ -10,6 +10,7 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import Navbar from "./components/global/NavBar";
+import { Toaster } from "sonner";
 
 export const links: Route.LinksFunction = () => [
   {
@@ -31,6 +32,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className=" bg-black text-white font-sans min-h-screen">
+        <Toaster position="bottom-right" richColors theme="dark" />
         <Navbar />
         {children}
         <ScrollRestoration />
