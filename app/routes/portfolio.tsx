@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-import gsap from "gsap";
+import { gsap } from "gsap";
 
 import Container from "~/components/global/Container";
 import PaddingSection from "~/components/global/PaddingSection";
