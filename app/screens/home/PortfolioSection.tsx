@@ -1,16 +1,17 @@
 import { Link } from "react-router";
 
 import ReverseUnderlineText from "~/components/framer/ReverseUnderlineText";
+import Container from "~/components/global/Container";
 import PaddingSection from "~/components/global/PaddingSection";
 
-const PortpolioSection = () => {
+const PortfolioSection = () => {
   return (
-    <>
+    <Container>
       <div className=" flex flex-col gap-40">
-        <div className="w-[80%] aspect-video mx-auto bg-red-200" />
-        <div className="flex justify-between h-[150vh]">
-          <div className="self-end w-2/5 aspect-580/720 bg-yellow-300" />
-          <div className="self-start w-2/5 aspect-580/720 bg-blue-300" />
+        <div className="w-full aspect-video mx-auto bg-red-200" />
+        <div className="flex">
+          <div className="flex-1 aspect-4/3 bg-yellow-300" />
+          <div className="flex-1 aspect-4/3 bg-blue-300" />
         </div>
       </div>
 
@@ -26,8 +27,8 @@ const PortpolioSection = () => {
           />
         </Link>
       </div>
-    </>
+    </Container>
   );
 };
 
-export default PortpolioSection;
+export default PortfolioSection;

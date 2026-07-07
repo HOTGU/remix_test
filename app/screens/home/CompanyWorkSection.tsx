@@ -2,20 +2,12 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 import { PROCESS_STEPS } from "~/constants";
-import PaddingSection from "~/components/global/PaddingSection";
+import Container from "~/components/global/Container";
 
 const CompanyWorkSection = () => {
   return (
-    <>
-      <div className="flex gap-4">
-        <div className="flex-1 bg-neutral-900 aspect-5/4" />
-        <div className="flex-1 bg-neutral-900 aspect-5/4" />
-      </div>
-
-      <PaddingSection size="md" />
-
-      {/* 회사 작업 과정 */}
-      <div className=" text-neutral-900">
+    <Container>
+      <div className=" text-current">
         <div className="text-7xl">우리가 일하는 방식:</div>
         <div className="pt-20" />
         <div className="flex flex-col items-end">
@@ -24,7 +16,7 @@ const CompanyWorkSection = () => {
           ))}
         </div>
       </div>
-    </>
+    </Container>
   );
 };
 

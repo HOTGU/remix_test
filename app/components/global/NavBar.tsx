@@ -27,14 +27,14 @@ const Navbar = () => {
   });
 
   return (
-    <div className="fixed pt-8 w-full mix-blend-difference pointer-events-none z-10">
+    <div className="fixed pt-8 w-full pointer-events-none mix-blend-difference z-10">
       <Container>
         <div className="h-full flex items-start justify-between">
-          <div className="w-max overflow-visible">
+          <div className="pointer-events-auto">
             <HiddenUpText>
-              <div className=" font-racing text-6xl w-max tracking-[-12px] pr-4 text-white mix-blend-difference pointer-events-auto whitespace-nowrap">
-                <Link to="/">WM</Link>
-              </div>
+              <Link to="/">
+                <img src="/imgs/logo.png" className="w-24" />
+              </Link>
             </HiddenUpText>
           </div>
 
@@ -44,7 +44,7 @@ const Navbar = () => {
                 isOpen
                   ? "opacity-0  -translate-y-6"
                   : "opacity-100  translate-y-2"
-              } cursor-pointer transition-all duration-500 ease-in-out text-white mix-blend-difference font-racing`}
+              } cursor-pointer transition-all duration-500 ease-in-out text-white font-racing`}
               onMouseEnter={() => setIsOpen(true)}
             >
               Menu

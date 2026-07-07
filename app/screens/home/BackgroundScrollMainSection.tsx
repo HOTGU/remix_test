@@ -5,26 +5,19 @@ import Container from "~/components/global/Container";
 import PaddingSection from "~/components/global/PaddingSection";
 
 import SloganSection from "./SloganSection";
-import PortpolioSection from "./PortpolioSection";
+import PortpolioSection from "./PortfolioSection";
 import CompanyProfileSection from "./CompanyProfileSection";
 import CompanyWorkSection from "./CompanyWorkSection";
-import ContactSection from "./ContactSection";
 
 const HomeClient = () => {
   const whiteSection = useRef(null);
-  const primarySection = useRef(null);
 
   const isInWhiteSection = useInView(whiteSection, {
-    margin: "-20% 0px -20% 0px",
-  });
-  const isInPrimarySection = useInView(primarySection, {
     margin: "-20% 0px -20% 0px",
   });
 
   const backgroundColor = (() => {
     if (isInWhiteSection) return "white";
-    if (isInPrimarySection) return "#ffe395";
-    return "black";
   })();
 
   return (
@@ -54,11 +47,6 @@ const HomeClient = () => {
         <div ref={whiteSection}>
           {/* 회사 작업 */}
           <CompanyWorkSection />
-        </div>
-
-        {/* primary background section */}
-        <div ref={primarySection}>
-          <ContactSection />
         </div>
       </Container>
     </motion.div>

@@ -31,7 +31,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className=" bg-black text-white font-sans min-h-screen">
+      <body className="bg-black text-white font-sans min-h-screen">
         <Toaster position="bottom-right" richColors theme="dark" />
         <Navbar />
         {children}
