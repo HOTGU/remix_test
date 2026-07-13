@@ -1,17 +1,20 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
+
 import FieldError from "./FieldError";
 
 type Option = { value: string; label: string };
 
 interface SelectProps {
   label: string;
-  name: string;
+  name?: string;
   options: Option[];
   defaultValue?: string;
   disabled?: boolean;
   required?: boolean;
   className?: string; // 바깥 래퍼 커스터마이즈용
-  menuClassName?: string; // 드롭다운 스타일 커스터마이즈용
+  menuClassName?: React.ComponentProps<"div">["className"]; // 드롭다운 래퍼 커스터마이즈용
+  buttonClassName?: React.ComponentProps<"div">["className"]; // 버튼 래퍼 커스터마이즈용
   error?: string;
 }
 
@@ -24,6 +27,7 @@ const Select: React.FC<SelectProps> = ({
   required,
   className = "",
   menuClassName = "",
+  buttonClassName = "",
   error,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -56,7 +60,7 @@ const Select: React.FC<SelectProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`w-full relative font-thin ${className}`}
+      className={twMerge(`w-full relative pt-10 pb-4`, className)}
     >
       {/* 폼 제출용 hidden input */}
       <input
@@ -74,7 +78,10 @@ const Select: React.FC<SelectProps> = ({
         onClick={() => !disabled && setOpen((o) => !o)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        className={`group w-[80%] text-lg text-stone-400 bg-transparent pt-10 pb-4 z-10 font-light border-b border-stone-400 hover:border-white focus:border-white focus:text-white outline-none transition disabled:cursor-not-allowed text-left`}
+        className={twMerge(
+          `group w-[80%] text-lg text-stone-400 bg-transparent font-light border-b pb-4 z-10 border-stone-400 hover:border-white focus:border-white focus:text-white outline-none transition disabled:cursor-not-allowed text-left`,
+          buttonClassName,
+        )}
       >
         <span className="group-hover:text-white">
           {selected?.label || label}

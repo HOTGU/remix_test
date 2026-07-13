@@ -27,9 +27,7 @@ const Radio: React.FC<RadioGroupProps> = ({
   const [selected, setSelected] = useState<string | undefined>(defaultValue);
 
   return (
-    <div
-      className={`flex flex-col gap-2 pt-10 relative font-thin ${className}`}
-    >
+    <div className={`flex flex-col gap-2 pt-10 relative ${className}`}>
       {/* 폼 제출용 hidden input */}
       <input
         className=" opacity-0 h-px absolute left-0 bottom-0"
@@ -53,7 +51,7 @@ const Radio: React.FC<RadioGroupProps> = ({
                 ${
                   isSelected
                     ? "bg-white text-black"
-                    : "border border-stone-600 bg-black text-stone-400"
+                    : "border border-stone-600 bg-black text-stone-400 hover:bg-stone-800"
                 } 
                 ${buttonClassName}`}
             >

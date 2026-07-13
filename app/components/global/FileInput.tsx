@@ -66,17 +66,15 @@ const FileInput: React.FC<FileInputProps> = ({
   };
 
   return (
-    <div
-      className={`flex flex-col gap-2 pt-10 font-thin relative ${className}`}
-    >
+    <div className={`flex flex-col gap-2 pt-10 relative ${className}`}>
       {label && (
         <div className="text-stone-400 flex flex-col">
           <span className="text-lg">{label}</span>
-          <div className="flex gap-1 items-center text-sm">
+          <div className="flex gap-1 items-center text-sm font-thin">
             <Info size={15} />
             <span>이미지확장자 (jpg, png, webp 등)만 가능합니다</span>
           </div>
-          <div className="flex gap-1 items-center text-sm">
+          <div className="flex gap-1 items-center text-sm font-thin">
             <Info size={15} />
             <span>3D, 일러스트 등은</span>
             <div

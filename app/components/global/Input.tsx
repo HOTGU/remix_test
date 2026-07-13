@@ -21,7 +21,7 @@ const Input: React.FC<InputProps> = ({
   error,
 }) => {
   return (
-    <div className="w-full relative font-thin">
+    <div className="w-full relative">
       <input
         disabled={disabled}
         id={name}

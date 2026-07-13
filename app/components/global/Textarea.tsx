@@ -17,7 +17,7 @@ const Textarea: React.FC<TextareaProps> = ({
   error,
 }) => {
   return (
-    <div className="w-full font-thin relative">
+    <div className="w-full relative">
       <textarea
         disabled={disabled}
         id={name}
