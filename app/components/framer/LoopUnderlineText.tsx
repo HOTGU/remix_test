@@ -50,7 +50,7 @@ const LoadingUnderlineText: React.FC<Props> = ({
 
             repeat: Infinity,
 
-            ease: "linear",
+            ease: "easeInOut",
           }}
         />
       </div>

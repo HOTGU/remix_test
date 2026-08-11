@@ -26,4 +26,16 @@
 @theme {
   --font-sans: Pretendard, "Pretendard Fallback", system-ui, sans-serif;
   --font-racing: RacingSansOne, sans-serif;
+
+  --animate-marquee: marquee 100s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0%);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }

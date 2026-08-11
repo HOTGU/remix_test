@@ -10,12 +10,12 @@ const UnderlineText = ({ to, label }: { to: string; label: string }) => {
     hover: {
       width: "100%",
       left: "0%",
-      transition: { duration: 0.3, ease: easeInOut },
+      transition: { delay: 0.1, duration: 0.4, ease: easeInOut },
     },
     exit: {
       width: "0%",
       left: "100%",
-      transition: { duration: 0.4, ease: easeInOut },
+      transition: { duration: 0.2, ease: easeInOut },
     },
   };
 

@@ -11,6 +11,7 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import Navbar from "./components/global/NavBar";
 import { Toaster } from "sonner";
+import Footer from "./components/global/Footer";
 
 export const links: Route.LinksFunction = () => [
   {
@@ -35,6 +36,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Toaster position="bottom-right" richColors theme="dark" />
         <Navbar />
         {children}
+        <Footer />
         <ScrollRestoration />
         <Scripts />
       </body>

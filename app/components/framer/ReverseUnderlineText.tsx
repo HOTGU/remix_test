@@ -33,14 +33,14 @@ const ReverseUnderlineText: React.FC<Props> = ({
       await controls.start({
         scaleX: 0,
         transformOrigin: "right",
-        transition: { duration: 0.4, ease: "easeInOut" },
+        transition: { duration: 0.4, ease: "easeOut" },
       });
 
       // 2️⃣ 왼쪽에서부터 밑줄 다시 나타남
       await controls.start({
         scaleX: 1,
         transformOrigin: "left",
-        transition: { duration: 0.4, ease: "easeInOut" },
+        transition: { delay: 0.2, duration: 0.4, ease: "easeOut" },
       });
     } finally {
       // 언제나 애니메이션 종료 후 상태 초기화

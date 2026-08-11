@@ -102,7 +102,7 @@ const portfolio = () => {
               className=" group relative overflow-hidden w-1/2 aspect-video"
               key={i}
             >
-              <div className="w-full h-full transition-transform duration-700 ease-out group-hover:scale-105">
+              <div className="w-full h-full transition-transform duration-300 ease-out group-hover:scale-105">
                 <ProgressiveImage
                   src={portfolio.thumb}
                   blurSrc={portfolio.blurThumb}
@@ -114,7 +114,7 @@ const portfolio = () => {
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/70 transition-all duration-500" />
 
               {/* Content */}
-              <div className=" absolute top-8 left-8 text-white opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+              <div className=" absolute top-8 left-8 text-white opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
                 <div className="text-3xl font-semibold">{portfolio.title}</div>
 
                 <div className="mt-2 text-sm font-light opacity-70">
