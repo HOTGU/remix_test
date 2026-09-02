@@ -14,10 +14,31 @@ import type { Route } from "./+types/home";
 import type { Portfolio } from "~/schemas/portfolio.server";
 import ClientFlowSection from "~/screens/home/ClientFlowSection";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ location }: Route.MetaArgs) {
+  const domain = "https://weavemetn.co.kr"; // 실제 도메인 주소로 변경하세요
+  const title = "조형물 제작 - 위브먼트";
+  const description =
+    "감각적인 제조, 위브먼트. FRP, 스티로폼, 패브릭, 금속, 목재, 3D프린팅, ALC 등 맞춤형 조형물 제작 서비스";
+  const ogImage = `${domain}/public/imgs/meta_img.png`; // OG 이미지 경로
+  const keywords = "조형물 제작, 캐릭터 조형물, 인형탈 제작, FRP, FRP 조형물";
+
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title },
+    { name: "description", content: description },
+    { name: "keywords", content: keywords },
+
+    {
+      tagName: "link",
+      rel: "canonical",
+      href: `${domain}${location.pathname}`,
+    },
+
+    { property: "og:type", content: "website" },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: ogImage },
+    { property: "og:url", content: `${domain}${location.pathname}` },
+    { property: "og:locale", content: "ko_KR" },
   ];
 }
 
@@ -41,32 +62,48 @@ export default function Home() {
     margin: "-20% 0px -20% 0px",
   });
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "위브먼트",
+    url: "https://weavement.co.kr",
+    logo: "https://weavement.com/public/imgs/logo.png",
+    description: "조형물 제작 전문기업",
+    sameAs: ["https://instagram.com/weavement"],
+  };
+
   return (
-    <motion.main
-      animate={{
-        backgroundColor: isWorkVisible ? "#fff" : "#000",
-        color: isWorkVisible ? "#000" : "#fff",
-      }}
-      transition={{
-        duration: 0.5,
-        ease: "easeInOut",
-      }}
-      className="space-y-60"
-    >
-      <HeroSection />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <motion.main
+        animate={{
+          backgroundColor: isWorkVisible ? "#fff" : "#000",
+          color: isWorkVisible ? "#000" : "#fff",
+        }}
+        transition={{
+          duration: 0.5,
+          ease: "easeInOut",
+        }}
+        className="space-y-60"
+      >
+        <HeroSection />
 
-      <SloganSection />
+        <SloganSection />
 
-      <PortfolioSection />
+        <PortfolioSection />
 
-      <CompanyProfileSection />
+        <CompanyProfileSection />
 
-      <ClientFlowSection />
+        <ClientFlowSection />
 
-      <div ref={workRef} className="space-y-52">
-        <CompanyWorkSection />
-        <ContactSection />
-      </div>
-    </motion.main>
+        <div ref={workRef} className="space-y-52">
+          <CompanyWorkSection />
+          <ContactSection />
+        </div>
+      </motion.main>
+    </>
   );
 }

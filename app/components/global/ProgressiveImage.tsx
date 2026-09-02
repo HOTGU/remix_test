@@ -4,14 +4,20 @@ interface Props {
   src: string;
   blurSrc: string;
   alt: string;
+  isPriority?: boolean;
 }
 
-export default function ProgressiveImage({ src, blurSrc, alt }: Props) {
+export default function ProgressiveImage({
+  src,
+  blurSrc,
+  alt,
+  isPriority = false,
+}: Props) {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    if (imgRef.current?.complete) {
+    if (imgRef.current && imgRef.current.complete) {
       setLoaded(true);
     } else {
       setLoaded(false);
@@ -24,7 +30,9 @@ export default function ProgressiveImage({ src, blurSrc, alt }: Props) {
       <img
         src={blurSrc}
         alt=""
-        aria-hidden
+        aria-hidden="true"
+        fetchPriority="low"
+        decoding="async"
         className={`
           absolute inset-0
           w-full h-full
@@ -43,7 +51,10 @@ export default function ProgressiveImage({ src, blurSrc, alt }: Props) {
         ref={imgRef}
         src={src}
         alt={alt}
-        loading="lazy"
+        /* 우선순위에 따른 동적 로딩 설정 */
+        loading={isPriority ? "eager" : "lazy"}
+        fetchPriority={isPriority ? "high" : "auto"}
+        decoding="async"
         onLoad={() => {
           setLoaded(true);
         }}

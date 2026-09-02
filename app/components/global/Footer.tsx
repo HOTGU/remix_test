@@ -19,7 +19,7 @@ const Footer = () => {
           <div className="w-1/3 text-neutral-400 font-extralight my-4">
             <div className=" grid grid-cols-3 space-y-2 text-lg">
               <div>About</div>
-              <div>P&Q</div>
+              <div>F&A</div>
               <div>Blog</div>
               <div>Column</div>
               <div>Instagram</div>

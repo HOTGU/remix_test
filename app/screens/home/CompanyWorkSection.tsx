@@ -6,17 +6,23 @@ import Container from "~/components/global/Container";
 
 const CompanyWorkSection = () => {
   return (
-    <Container>
-      <div className=" text-current">
-        <div className="text-7xl">아이디어 하나면 충분합니다.</div>
-        <div className="pt-20" />
-        <div className="flex flex-col items-end">
-          {PROCESS_STEPS.map((item) => (
-            <ProcessItem item={item} key={item.title} />
-          ))}
+    <section>
+      <Container>
+        {/* SEO용 H2 태그 */}
+        <h2 className="sr-only">
+          FRP·에어 조형물 및 인형탈 디자인 기획부터 제작 완료까지의 프로세스
+        </h2>
+        <div className="text-current" aria-hidden="true">
+          <p className="text-7xl">아이디어 하나면 충분합니다.</p>
+          <div className="pt-20" />
+          <div className="flex flex-col items-end">
+            {PROCESS_STEPS.map((item) => (
+              <ProcessItem item={item} key={item.title} />
+            ))}
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </section>
   );
 };
 
@@ -26,12 +32,14 @@ const ProcessItem = ({ item }: { item: (typeof PROCESS_STEPS)[0] }) => {
   return (
     <div className="w-[70%] border-t border-neutral-300">
       <div className="pt-8" />
-      <div
-        className="flex items-center font-normal cursor-pointer"
+      {/* div 클릭 대신 accessibility(접근성)를 위해 button으로 변경 */}
+      <button
+        type="button"
+        className="w-full flex items-center font-normal cursor-pointer text-left"
         onClick={() => setActive((prev) => !prev)}
       >
-        <div className="w-1/12 text-xl">{item.title}</div>
-        <div className="flex-1 text-3xl">{item.text}</div>
+        <h3 className="w-1/12 text-xl">{item.title}</h3>
+        <p className="flex-1 text-3xl">{item.text}</p>
         <motion.div className="relative" animate={active ? "minus" : "plus"}>
           <motion.div
             variants={{ plus: { rotate: 90 }, minus: { rotate: 0 } }}
@@ -39,7 +47,7 @@ const ProcessItem = ({ item }: { item: (typeof PROCESS_STEPS)[0] }) => {
           />
           <motion.div className="absolute h-[2px] w-5 bg-neutral-800 right-0" />
         </motion.div>
-      </div>
+      </button>
 
       <motion.div
         className="overflow-hidden"
@@ -50,7 +58,7 @@ const ProcessItem = ({ item }: { item: (typeof PROCESS_STEPS)[0] }) => {
         <div className="pt-8" />
         <div className="flex">
           <div className="w-1/12" />
-          <div className="font-light">{item.description}</div>
+          <p className="font-light">{item.description}</p>
         </div>
       </motion.div>
 
