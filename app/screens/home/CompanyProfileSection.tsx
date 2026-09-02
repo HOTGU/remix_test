@@ -4,15 +4,25 @@ const CompanyProfileSection = () => {
   return (
     <Container>
       <div className="flex justify-between text-white font-pretendard">
-        <div className="w-1/2 pr-40">
-          <div className="text-6xl mb-10 leading-tight">
-            감각적인 제조를
+        <div className="w-1/2 pr-32">
+          <div className="text-5xl mb-10 leading-tight">
+            위브먼트는 조형을 넘어,
             <br />
-            위한 최고의 선택
+            경험을 만듭니다.
           </div>
-          <div className="text-xl whitespace-pre-wrap break-keep font-thin">
-            우리는 클라이언트들과 협력하고 원하는 바를 정확히 파악하기 위해
-            끊임없이 소통하며 아이디어를 한단계 더 발전시킵니다
+          <div className="text-xl whitespace-pre-wrap break-keep font-thin space-y-6">
+            <p>
+              빠르게 변화하는 시장과 고객의 요구에 맞춰 새로운 소재와 제작방식을
+              고민하고 더 나은 조형 형태를 제안합니다.
+            </p>
+            <p>
+              2023년부터 매년 2배의 성장을 이어오며 다양한 브랜드와 기업의
+              프로젝트를 함께해왔습니다.
+            </p>
+            <p>
+              높은 재구매율은 위브먼트가 쌓아온 신뢰를 보여주는 가장 확실한
+              증거입니다.
+            </p>
           </div>
         </div>
         <div className="w-1/2 space-y-10">

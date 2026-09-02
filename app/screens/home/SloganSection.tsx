@@ -5,12 +5,13 @@ const SloganSection = () => {
     <Container>
       <div className="flex justify-between items-start">
         <p className="w-1/5 leading-6 pt-4 font-light whitespace-pre-line break-keep ">
-          위브먼트에게는 조형물의 크기도 목적도 소재도 제한이 없습니다 예산과
-          일정 목적에 알맞은 예술적인 결과를 만들어갑니다
+          감각적인 제조, <br />
+          새로운 공간과 경험을 만듭니다.
         </p>
-        <p className="w-2/3 text-7xl leading-24 whitespace-pre-wrap break-keep">
-          우리는 고객들에게 대단한 경험을 하게 해줄 수 있다. <br />
-          (우리는 투자합니다)
+        <p className="w-2/3 text-6xl leading-20 whitespace-pre-wrap break-keep">
+          예술적 감각에 전문 기술을 더해 <br />
+          조형 산업의 새로운 길을 제시하고, <br />
+          트렌드를 선호합니다.
         </p>
       </div>
     </Container>

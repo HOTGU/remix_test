@@ -8,7 +8,7 @@ const CompanyWorkSection = () => {
   return (
     <Container>
       <div className=" text-current">
-        <div className="text-7xl">우리가 일하는 방식:</div>
+        <div className="text-7xl">아이디어 하나면 충분합니다.</div>
         <div className="pt-20" />
         <div className="flex flex-col items-end">
           {PROCESS_STEPS.map((item) => (
