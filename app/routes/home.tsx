@@ -97,9 +97,8 @@ export default function Home() {
 
         <CompanyProfileSection />
 
-        <ClientFlowSection />
-
         <div ref={workRef} className="space-y-52">
+          <ClientFlowSection />
           <CompanyWorkSection />
           <ContactSection />
         </div>

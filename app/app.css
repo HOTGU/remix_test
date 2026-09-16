@@ -27,7 +27,7 @@
   --font-sans: Pretendard, "Pretendard Fallback", system-ui, sans-serif;
   --font-racing: RacingSansOne, sans-serif;
 
-  --animate-marquee: marquee 100s linear infinite;
+  --animate-marquee: marquee 80s linear infinite;
 
   @keyframes marquee {
     from {
