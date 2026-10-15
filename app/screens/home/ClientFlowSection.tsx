@@ -1,44 +1,42 @@
 // ClientFlowSection.tsx
 import PaddingSection from "~/components/global/PaddingSection";
 
-const items = Array.from({ length: 20 }, (_, i) => i + 1);
-
 const logos = [
-  { src: "/imgs/logo/경희대학교.webp" },
-  { src: "/imgs/logo/농심.webp" },
-  { src: "/imgs/logo/랄프로렌.webp" },
-  { src: "/imgs/logo/롯데리아.webp", width: 70 },
-  { src: "/imgs/logo/러쉬.webp" },
-  { src: "/imgs/logo/롯데.webp" },
-  { src: "/imgs/logo/신세계.webp" },
-  { src: "/imgs/logo/연세대학교.webp", width: 70 },
-  { src: "/imgs/logo/한양대학교.webp" },
-  { src: "/imgs/logo/현대모비스.webp", width: 110 },
-  { src: "/imgs/logo/cj.webp", width: 70 },
-  { src: "/imgs/logo/disney.webp", width: 100 },
-  { src: "/imgs/logo/ebs.webp" },
-  { src: "/imgs/logo/im금융그룹.webp", width: 160 },
-  { src: "/imgs/logo/lg.webp", width: 80 },
-  { src: "/imgs/logo/sbs.webp" },
+  { src: "/imgs/logo/nongshim.webp", alt: "농심" },
+  { src: "/imgs/logo/lotte.webp", alt: "롯데" },
+  { src: "/imgs/logo/yangsan.webp", alt: "양산시" },
+  { src: "/imgs/logo/shinsegae.webp", alt: "신세계" },
+  { src: "/imgs/logo/ralph-lauren.webp", alt: "랄프로렌" },
+  { src: "/imgs/logo/ulleung.webp", alt: "울릉군" },
+  { src: "/imgs/logo/lotteria.webp", width: 70, alt: "롯데리아" },
+  { src: "/imgs/logo/lush.webp", alt: "러쉬" },
+  { src: "/imgs/logo/keco.webp", alt: "한국환경공단" },
+  { src: "/imgs/logo/sangju-museum.webp", width: 160, alt: "상주박물관" },
+  { src: "/imgs/logo/khu.webp", alt: "경희대학교" },
+  { src: "/imgs/logo/pyeongtaek.webp", alt: "평택시" },
+  { src: "/imgs/logo/gimcheon.webp", alt: "김천시" },
+  { src: "/imgs/logo/namyangju.webp", width: 90, alt: "남양주" },
+  { src: "/imgs/logo/seoul-fire.webp", width: 160, alt: "서울소방재난본부" },
+  { src: "/imgs/logo/wonju.webp", alt: "원주시" },
 ];
 
 const logo2s = [
-  { src: "/imgs/logo2/거제시.webp" },
-  { src: "/imgs/logo2/건강보험심사평가원.webp", width: 170 },
-  { src: "/imgs/logo2/고양국제박람회재단.webp", width: 160 },
-  { src: "/imgs/logo2/광주시.webp", width: 120 },
-  { src: "/imgs/logo2/국립민속박물관.webp" },
-  { src: "/imgs/logo2/국립중앙박물관.webp" },
-  { src: "/imgs/logo2/국민체육진흥공단.webp" },
-  { src: "/imgs/logo2/김천시.webp" },
-  { src: "/imgs/logo2/남양주.webp", width: 90 },
-  { src: "/imgs/logo2/상주박물관.webp", width: 160 },
-  { src: "/imgs/logo2/서울소방재난본부.webp", width: 160 },
-  { src: "/imgs/logo2/양산시.webp" },
-  { src: "/imgs/logo2/울룽군.webp" },
-  { src: "/imgs/logo2/원주시.webp" },
-  { src: "/imgs/logo2/평택시.webp" },
-  { src: "/imgs/logo2/한국환경공단.webp" },
+  { src: "/imgs/logo/cj.webp", width: 70, alt: "CJ" },
+  { src: "/imgs/logo/nfm.webp", alt: "국립민속박물관" },
+  { src: "/imgs/logo/disney.webp", width: 100, alt: "디즈니" },
+  { src: "/imgs/logo/hira.webp", width: 170, alt: "건강보험심사평가원" },
+  { src: "/imgs/logo/ebs.webp", alt: "EBS" },
+  { src: "/imgs/logo/museum.webp", alt: "국립중앙박물관" },
+  { src: "/imgs/logo/kspo.webp", alt: "국민체육진흥공단" },
+  { src: "/imgs/logo/gwangju.webp", width: 120, alt: "광주시" },
+  { src: "/imgs/logo/mobis.webp", width: 110, alt: "현대모비스" },
+  { src: "/imgs/logo/geoje.webp", alt: "거제시" },
+  { src: "/imgs/logo/goyang-expo.webp", width: 160, alt: "고양국제박람회재단" },
+  { src: "/imgs/logo/yonsei.webp", width: 70, alt: "연세대학교" },
+  { src: "/imgs/logo/hanyang.webp", alt: "한양대학교" },
+  { src: "/imgs/logo/im-financial.webp", width: 160, alt: "iM금융그룹" },
+  { src: "/imgs/logo/lg.webp", width: 80, alt: "LG" },
+  { src: "/imgs/logo/sbs.webp", alt: "SBS" },
 ];
 
 const ClientFlowSection = () => {
@@ -64,6 +62,7 @@ const ClientFlowSection = () => {
             >
               <img
                 src={item.src}
+                alt={item.alt}
                 width={item.width ? item.width : 130}
                 className="bg-neutral-100"
               />
@@ -78,6 +77,7 @@ const ClientFlowSection = () => {
             >
               <img
                 src={item.src}
+                alt={item.alt}
                 width={item.width ? item.width : 130}
                 className="bg-neutral-100"
               />

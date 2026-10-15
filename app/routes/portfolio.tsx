@@ -169,32 +169,34 @@ export default function PortfolioPage() {
       >
         <div className="flex flex-wrap">
           {portfolios.map((portfolio, i) => (
-            <article
-              className="group relative overflow-hidden w-1/2 aspect-video"
-              key={i}
-            >
-              <div className="w-full h-full transition-transform duration-300 ease-out group-hover:scale-105">
-                <ProgressiveImage
-                  src={portfolio.thumb}
-                  blurSrc={portfolio.blurThumb}
-                  /* 구글 이미지 검색 노출을 위한 상세 alt 설정 */
-                  alt={`위브먼트 ${portfolio.category || "조형물"} 제작 사례 - ${portfolio.title}`}
-                  /* 상단 4개 이미지(첫 화면)는 우선 로드 처리 */
-                  isPriority={i < 4}
-                />
-              </div>
+            <Link to={`/portfolio/${portfolio.slug}`} className="w-1/2 h-full">
+              <article
+                className="group relative overflow-hidden aspect-video"
+                key={i}
+              >
+                <div className="w-full h-full transition-transform duration-300 ease-out group-hover:scale-105">
+                  <ProgressiveImage
+                    src={portfolio.thumb}
+                    blurSrc={portfolio.blurThumb}
+                    /* 구글 이미지 검색 노출을 위한 상세 alt 설정 */
+                    alt={`위브먼트 ${portfolio.category || "조형물"} 제작 사례 - ${portfolio.title}`}
+                    /* 상단 4개 이미지(첫 화면)는 우선 로드 처리 */
+                    isPriority={i < 4}
+                  />
+                </div>
 
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/70 transition-all duration-500" />
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/70 transition-all duration-500" />
 
-              {/* Content */}
-              <div className="absolute top-8 left-8 text-white opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                <h2 className="text-3xl font-semibold">{portfolio.title}</h2>
-                <p className="mt-2 text-sm font-light opacity-70">
-                  {portfolio.category}
-                </p>
-              </div>
-            </article>
+                {/* Content */}
+                <div className="absolute top-8 left-8 text-white opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                  <h2 className="text-3xl font-semibold">{portfolio.title}</h2>
+                  <p className="mt-2 text-sm font-light opacity-70">
+                    {portfolio.category}
+                  </p>
+                </div>
+              </article>
+            </Link>
           ))}
         </div>
       </section>

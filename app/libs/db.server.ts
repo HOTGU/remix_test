@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 
 const client = new MongoClient(process.env.DATABASE_URL!);
 
@@ -18,3 +18,5 @@ export async function getDb() {
   const client = await clientPromise;
   return client.db(process.env.DB_NAME);
 }
+
+export { ObjectId };
